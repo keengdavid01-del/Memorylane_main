@@ -11,26 +11,18 @@ colors = ["#ff4d6d","#ff80a0","#ffb3c6","#ffccd9"]
 
 st.markdown("""
 <style>
-/* Full app background */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, #ffe6f0, #fff0f5);
     background-attachment: fixed;
 }
-
 h1, h2 { color: #ff4d6d; text-align: center; }
 .long-text { font-size: 18px; line-height: 1.7; background: rgba(255,255,255,0.6); padding: 20px; border-radius: 15px; margin-bottom: 20px; }
 .fade-in { animation: fadeIn 2s ease-in; }
 @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
-
-.polaroid { 
-  width: 300px; padding: 10px; background: white; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; 
-  transition: transform 0.3s; margin-bottom:20px;
-}
+.polaroid { width: 300px; padding: 10px; background: white; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; transition: transform 0.3s; margin-bottom:20px; }
 .polaroid:hover { transform: scale(1.05) rotate(-1deg); }
-
 .button-clickme { background-color: #ff4d6d; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-size: 18px; cursor: pointer; margin-bottom:20px; }
 .button-clickme:hover { background-color: #ff80a0; }
-
 .heart { position: fixed; font-size: 20px; pointer-events: none; animation: float linear infinite; }
 @keyframes float { 0% {transform: translateY(100vh);} 100% {transform: translateY(-10vh);} }
 </style>
@@ -148,24 +140,31 @@ elif st.session_state.page == "quiz":
     st.header("Memory Quiz 💖")
     st.markdown("Answer the following questions about our special moments:")
 
-    q1 = st.text_input("1) Where did you say yes to being my girlfriend?")
-    q2 = st.text_input("2) What was the day and month?")
-    q3 = st.text_input("3) What is my nickname for you?")
-    q4 = st.text_input("4) What is your nickname for me?")
+    if "q1" not in st.session_state: st.session_state.q1 = ""
+    if "q2" not in st.session_state: st.session_state.q2 = ""
+    if "q3" not in st.session_state: st.session_state.q3 = ""
+    if "q4" not in st.session_state: st.session_state.q4 = ""
+
+    st.session_state.q1 = st.text_input("1) Where did you say yes to being my girlfriend?", st.session_state.q1)
+    st.session_state.q2 = st.text_input("2) What was the day and month?", st.session_state.q2)
+    st.session_state.q3 = st.text_input("3) What is my nickname for you?", st.session_state.q3)
+    st.session_state.q4 = st.text_input("4) What is your nickname for me?", st.session_state.q4)
 
     if st.button("Submit Answers"):
         correct = (
-            q1.strip().lower() == "jabi lake mall" and
-            q2.strip().lower() in ["july 26","26 july"] and
-            q3.strip().lower() == "monklet" and
-            q4.strip().lower() == "hubby"
+            st.session_state.q1.strip().lower() == "jabi lake mall" and
+            st.session_state.q2.strip().lower() in ["july 26","26 july"] and
+            st.session_state.q3.strip().lower() == "monklet" and
+            st.session_state.q4.strip().lower() == "hubby"
         )
         if correct:
             st.balloons()
-            st.success("All answers correct! Feel free to come back and revisit this page😘")
+            st.success("All answers correct! feel free to revisit this page anytime, anyday 😘")
         else:
             st.error("Some answers are incorrect. Try again 💖")
 
     if st.button("Replay Quiz"):
-        st.experimental_rerun()
-
+        st.session_state.q1 = ""
+        st.session_state.q2 = ""
+        st.session_state.q3 = ""
+        st.session_state.q4 = ""
