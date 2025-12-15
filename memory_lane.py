@@ -4,11 +4,13 @@ st.set_page_config(page_title="Memory Lane ❤️", page_icon="❤️")
 
 def play_music(file):
     st.markdown(f"""
-    <audio id="bgmusic" src="{file}" type="audio/mp3"></audio>
+    <audio controls autoplay loop style="display:none" id="bgmusic">
+      <source src="{file}" type="audio/mp3">
+    </audio>
     <script>
-    var audio = document.getElementById("bgmusic")
-    audio.play()
-    audio.loop = true
+      const audio = document.getElementById("bgmusic");
+      audio.volume = 0.5;
+      audio.play();
     </script>
     """, unsafe_allow_html=True)
 
@@ -30,21 +32,32 @@ st.markdown("""
 
 if "page" not in st.session_state:
     st.session_state.page = "login"
+if "music_started" not in st.session_state:
+    st.session_state.music_started = False
 
 if st.session_state.page == "login":
     st.markdown("<h1>Memory Lane ❤️</h1>", unsafe_allow_html=True)
     name = st.text_input("What is your name?")
     date = st.text_input("What is our date?")
-
     if st.button("Enter 💖", key="enter"):
         if name.upper() == "MONKLET" and date == "26":
             st.session_state.page = "page1"
+            st.session_state.music_started = True
             st.rerun()
         else:
             st.error("Access denied 😭")
 
-elif st.session_state.page == "page1":
-    play_music("chapter1.mp3")
+if st.session_state.music_started:
+    if st.session_state.page == "page1":
+        play_music("chapter1.mp3")
+    elif st.session_state.page == "page2":
+        play_music("chapter2.mp3")
+    elif st.session_state.page == "page3":
+        play_music("chapter3.mp3")
+    elif st.session_state.page == "page4":
+        play_music("chapter4.mp3")
+
+if st.session_state.page == "page1":
     st.header("Chapter One 💕")
     st.markdown("""
     <div class="long-text fade-in">
@@ -55,7 +68,6 @@ elif st.session_state.page == "page1":
     """, unsafe_allow_html=True)
     st.image("page1_pic1.jpg")
     st.image("page1_pic2.jpg")
-
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back1"):
@@ -67,7 +79,6 @@ elif st.session_state.page == "page1":
             st.rerun()
 
 elif st.session_state.page == "page2":
-    play_music("chapter2.mp3")
     st.header("Chapter Two 💖")
     st.markdown("""
     <div class="long-text fade-in">
@@ -78,7 +89,6 @@ elif st.session_state.page == "page2":
     """, unsafe_allow_html=True)
     st.image("page2_pic1.jpg")
     st.image("page2_pic2.jpg")
-
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back2"):
@@ -90,7 +100,6 @@ elif st.session_state.page == "page2":
             st.rerun()
 
 elif st.session_state.page == "page3":
-    play_music("chapter3.mp3")
     st.header("Chapter Three ❤️")
     st.markdown("""
     <div class="long-text fade-in">
@@ -100,7 +109,6 @@ elif st.session_state.page == "page3":
     """, unsafe_allow_html=True)
     st.image("page3_pic1.jpg")
     st.image("page3_pic2.jpg")
-
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back3"):
@@ -112,7 +120,6 @@ elif st.session_state.page == "page3":
             st.rerun()
 
 elif st.session_state.page == "page4":
-    play_music("chapter4.mp3")
     st.header("Chapter Four 💘")
     st.markdown("""
     <div class="long-text fade-in">
@@ -122,7 +129,6 @@ elif st.session_state.page == "page4":
     """, unsafe_allow_html=True)
     st.image("page4_pic1.jpg")
     st.image("page4_pic2.jpg")
-
     if st.button("⬅️ Back to Chapter Three", key="back4"):
         st.session_state.page = "page3"
         st.rerun()
