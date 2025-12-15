@@ -7,7 +7,7 @@ if "page" not in st.session_state:
 if "music_started" not in st.session_state:
     st.session_state.music_started = False
 
-def play_music_hidden(file):
+def play_music(file):
     st.markdown(f"""
     <audio id="bgmusic" src="{file}" type="audio/mp3" autoplay loop></audio>
     <script>
@@ -23,6 +23,8 @@ body { background-color: #fff0f5; }
 h1, h2 { color: #ff4d6d; text-align: center; }
 .long-text { font-size: 18px; line-height: 1.7; background: rgba(255,255,255,0.6); padding: 20px; border-radius: 15px; margin-bottom: 20px; }
 .fade-in { animation: fadeIn 2s ease-in; }
+.button-clickme { background-color: #ff4d6d; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-size: 18px; cursor: pointer; }
+.button-clickme:hover { background-color: #ff80a0; }
 @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
 </style>
 """, unsafe_allow_html=True)
@@ -37,25 +39,30 @@ if st.session_state.page == "login":
     st.markdown("<h1>Memory Lane ❤️</h1>", unsafe_allow_html=True)
     name = st.text_input("What is your name?")
     date = st.text_input("What is our date?")
+
     if st.button("Enter 💖", key="enter"):
         if name.upper() == "MONKLET" and date == "26":
             st.session_state.page = "page1"
-            st.session_state.music_started = True
             st.rerun()
         else:
             st.error("Access denied 😭")
 
+if not st.session_state.music_started and st.session_state.page != "login":
+    if st.button("Click Me 🎵", key="clickme"):
+        st.session_state.music_started = True
+        st.rerun()
+
 if st.session_state.music_started:
     if st.session_state.page == "page1":
-        play_music_hidden("chapter1.mp3")
+        play_music("chapter1.mp3")
     elif st.session_state.page == "page2":
-        play_music_hidden("chapter2.mp3")
+        play_music("chapter2.mp3")
     elif st.session_state.page == "page3":
-        play_music_hidden("chapter3.mp3")
+        play_music("chapter3.mp3")
     elif st.session_state.page == "page4":
-        play_music_hidden("chapter4.mp3")
+        play_music("chapter4.mp3")
 
-# Page content remains the same
+# Example Page 1 content
 if st.session_state.page == "page1":
     st.header("Chapter One 💕")
     st.markdown("""
@@ -74,42 +81,3 @@ if st.session_state.page == "page1":
         if st.button("Next ➡️", key="next1"):
             st.session_state.page = "page2"
             st.rerun()
-
-elif st.session_state.page == "page2":
-    st.header("Chapter Two 💖")
-    st.markdown("<div class='long-text fade-in'>Honestly, these past months have been extremely amazing...</div>", unsafe_allow_html=True)
-    st.image("page2_pic1.jpg")
-    st.image("page2_pic2.jpg")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("⬅️ Back", key="back2"):
-            st.session_state.page = "page1"
-            st.rerun()
-    with col2:
-        if st.button("Next ➡️", key="next2"):
-            st.session_state.page = "page3"
-            st.rerun()
-
-elif st.session_state.page == "page3":
-    st.header("Chapter Three ❤️")
-    st.markdown("<div class='long-text fade-in'>There are so many things I could say to you, but even the most beautiful words sometimes feel too small...</div>", unsafe_allow_html=True)
-    st.image("page3_pic1.jpg")
-    st.image("page3_pic2.jpg")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("⬅️ Back", key="back3"):
-            st.session_state.page = "page2"
-            st.rerun()
-    with col2:
-        if st.button("Next ➡️", key="next3"):
-            st.session_state.page = "page4"
-            st.rerun()
-
-elif st.session_state.page == "page4":
-    st.header("Chapter Four 💘")
-    st.markdown("<div class='long-text fade-in'>Now those were all recaps of the moments and messages we've shared...</div>", unsafe_allow_html=True)
-    st.image("page4_pic1.jpg")
-    st.image("page4_pic2.jpg")
-    if st.button("⬅️ Back to Chapter Three", key="back4"):
-        st.session_state.page = "page3"
-        st.rerun()
