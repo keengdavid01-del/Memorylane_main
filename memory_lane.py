@@ -12,10 +12,13 @@ colors = ["#ff4d6d","#ff80a0","#ffb3c6","#ffccd9"]
 st.markdown("""
 <style>
 [data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    background: linear-gradient(135deg, #ffe6f0, #ffccd9);
     background-attachment: fixed;
 }
-h1, h2 { color: #ff4d6d; text-align: center; }
+h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+    text-align: center;
+}
 .long-text { 
     font-size: 18px; 
     line-height: 1.7; 
@@ -26,12 +29,23 @@ h1, h2 { color: #ff4d6d; text-align: center; }
     margin-bottom: 20px; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+.stTextInput>div>input {
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border-radius: 8px;
+}
+.stButton>button {
+    background-color: #ff4d6d;
+    color: #fff;
+    border-radius: 12px;
+}
+.stButton>button:hover {
+    background-color: #ff80a0;
+}
 .fade-in { animation: fadeIn 2s ease-in; }
 @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
 .polaroid { width: 300px; padding: 10px; background: white; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; transition: transform 0.3s; margin-bottom:20px; }
 .polaroid:hover { transform: scale(1.05) rotate(-1deg); }
-.button-clickme { background-color: #ff4d6d; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-size: 18px; cursor: pointer; margin-bottom:20px; }
-.button-clickme:hover { background-color: #ff80a0; }
 .heart { position: fixed; font-size: 20px; pointer-events: none; animation: float linear infinite; }
 @keyframes float { 0% {transform: translateY(100vh);} 100% {transform: translateY(-10vh);} }
 </style>
@@ -177,3 +191,4 @@ elif st.session_state.page == "quiz":
         st.session_state.q2 = ""
         st.session_state.q3 = ""
         st.session_state.q4 = ""
+
