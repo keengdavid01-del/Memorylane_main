@@ -16,7 +16,16 @@ st.markdown("""
     background-attachment: fixed;
 }
 h1, h2 { color: #ff4d6d; text-align: center; }
-.long-text { font-size: 18px; line-height: 1.7; background: rgba(255,255,255,0.6); padding: 20px; border-radius: 15px; margin-bottom: 20px; }
+.long-text { 
+    font-size: 18px; 
+    line-height: 1.7; 
+    background: rgba(0,0,0,0.6); 
+    color: #fff; 
+    padding: 20px; 
+    border-radius: 15px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
 .fade-in { animation: fadeIn 2s ease-in; }
 @keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
 .polaroid { width: 300px; padding: 10px; background: white; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; transition: transform 0.3s; margin-bottom:20px; }
@@ -159,7 +168,7 @@ elif st.session_state.page == "quiz":
         )
         if correct:
             st.balloons()
-            st.success("All answers correct! feel free to revisit this page anytime, anyday 😘")
+            st.success("All answers correct! You know me so well 😘")
         else:
             st.error("Some answers are incorrect. Try again 💖")
 
