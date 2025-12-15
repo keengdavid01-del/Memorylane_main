@@ -170,13 +170,19 @@ elif st.session_state.page == "quiz":
     st.markdown('<div class="question-bubble">What is your nickname for me?</div>', unsafe_allow_html=True)
     st.text_input("", key="q4", label_visibility="collapsed")
 
-    if st.button("Submit 💖"):
-        if (
-            st.session_state.q1.strip().lower() == "jabi lake mall"
-            and st.session_state.q2.strip().lower() in ["26 july", "july 26"]
-            and st.session_state.q3.strip().lower() == "monklet"
-            and st.session_state.q4.strip().lower() == "hubby"
-        ):
-            st.success("Perfect 💕 You got everything right baby")
-        else:
-            st.error("Try again baby 💔")
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Submit 💖"):
+            if (
+                st.session_state.q1.strip().lower() == "jabi lake mall"
+                and st.session_state.q2.strip().lower() in ["26 july", "july 26"]
+                and st.session_state.q3.strip().lower() == "monklet"
+                and st.session_state.q4.strip().lower() == "hubby"
+            ):
+                st.success("Perfect 💕 You really remember everything")
+            else:
+                st.error("Try again baby 💔")
+    with col2:
+        if st.button("Retake Quiz 🔄"):
+            for k in ["q1","q2","q3","q4"]:
+                st.session_state[k] = ""
