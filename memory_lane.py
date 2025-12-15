@@ -5,7 +5,7 @@ st.set_page_config(page_title="Memory Lane ❤️", page_icon="❤️")
 st.markdown("""
 <style>
 body {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4) !important;
 }
 h1, h2 {
     color: white;
@@ -37,7 +37,19 @@ h1, h2 {
     border-radius: 6px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.5);
 }
+.floating-hearts {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 30px;
+}
 </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="floating-hearts">
+💖 💕 ❤️ 💘 💞
+</div>
 """, unsafe_allow_html=True)
 
 if "page" not in st.session_state:
