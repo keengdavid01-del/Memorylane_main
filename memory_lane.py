@@ -4,8 +4,8 @@ st.set_page_config(page_title="Memory Lane ❤️", page_icon="❤️")
 
 st.markdown("""
 <style>
-body {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4) !important;
+.stApp {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
 }
 h1, h2 {
     color: white;
@@ -29,13 +29,6 @@ h1, h2 {
     margin-bottom: 6px;
     display: inline-block;
     font-weight: 600;
-}
-.polaroid {
-    background: white;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
 }
 .floating-hearts {
     position: fixed;
@@ -165,11 +158,9 @@ elif st.session_state.page == "page4":
 elif st.session_state.page == "quiz":
     st.header("Memory Quiz 💞")
 
-    if "q1" not in st.session_state:
-        st.session_state.q1 = ""
-        st.session_state.q2 = ""
-        st.session_state.q3 = ""
-        st.session_state.q4 = ""
+    for k in ["q1","q2","q3","q4"]:
+        if k not in st.session_state:
+            st.session_state[k] = ""
 
     st.markdown('<div class="question-bubble">Where did you say yes to being my girlfriend?</div>', unsafe_allow_html=True)
     st.session_state.q1 = st.text_input("", st.session_state.q1, key="q1", label_visibility="collapsed")
