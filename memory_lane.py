@@ -179,11 +179,17 @@ elif st.session_state.page == "quiz":
                 and st.session_state.q3.strip().lower() == "monklet"
                 and st.session_state.q4.strip().lower() == "hubby"
             ):
-                st.success("Perfect 💕 You got everything right baby")
+                st.success("Perfect 💕 You really remember everything")
             else:
                 st.error("Try again baby 💔")
     with col2:
         if st.button("Retake Quiz 🔄"):
-            for k in ["q1","q2","q3","q4"]:
-                del st.session_state[k]  # delete keys completely
-            st.experimental_rerun()  # safely rerun app so text_inputs reset
+            st.session_state.reset_quiz = True  # set a flag
+
+# At the very top of your script, after session_state initialization
+if "reset_quiz" in st.session_state and st.session_state.reset_quiz:
+    for k in ["q1","q2","q3","q4"]:
+        if k in st.session_state:
+            del st.session_state[k]
+    st.session_state.reset_quiz = False
+    st.experimental_rerun()  # safe, outside button context
