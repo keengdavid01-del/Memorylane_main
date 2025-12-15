@@ -72,8 +72,8 @@ if st.session_state.page == "page1":
     No matter where life takes us, one thing will never change — I’ll keep choosing you, over and over again.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page1_pic1.jpg", class_="polaroid")
-    st.image("page1_pic2.jpg", class_="polaroid")
+    st.markdown('<img src="page1_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
+    st.markdown('<img src="page1_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back1"):
@@ -94,8 +94,8 @@ elif st.session_state.page == "page2":
     I love you beyond measure, beyond human comprehension, and honestly, you’re the best girlfriend in the world. I love you sooooo veryyyy muchhhh, baby.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page2_pic1.jpg", class_="polaroid")
-    st.image("page2_pic2.jpg", class_="polaroid")
+    st.markdown('<img src="page2_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
+    st.markdown('<img src="page2_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back2"):
@@ -115,8 +115,8 @@ elif st.session_state.page == "page3":
     Every moment we've shared means everything to me. The laughter, the deep talks, the quiet glances, especially those times I look into your eyes and get completely lost, like no map could ever find me. You bring out the child in me, the carefree, joyful side I thought I had buried. You've reminded me how it feels to truly live in a moment.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page3_pic1.jpg", class_="polaroid")
-    st.image("page3_pic2.jpg", class_="polaroid")
+    st.markdown('<img src="page3_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
+    st.markdown('<img src="page3_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back3"):
@@ -136,8 +136,8 @@ elif st.session_state.page == "page4":
     It’s been an amazing time, a lot of beautiful memories we’ve made together, and I love you sooooo muchhhh, baby.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page4_pic1.jpg", class_="polaroid")
-    st.image("page4_pic2.jpg", class_="polaroid")
+    st.markdown('<img src="page4_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
+    st.markdown('<img src="page4_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
     if st.button("⬅️ Back to Chapter Three", key="back4"):
         st.session_state.page = "page3"
         st.rerun()
