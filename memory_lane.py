@@ -158,17 +158,22 @@ elif st.session_state.page == "page4":
 elif st.session_state.page == "quiz":
     st.header("Memory Quiz 💞")
 
+    # initialize keys if missing
+    for k in ["q1","q2","q3","q4"]:
+        if k not in st.session_state:
+            st.session_state[k] = ""
+
     st.markdown('<div class="question-bubble">Where did you say yes to being my girlfriend?</div>', unsafe_allow_html=True)
-    st.text_input("", key="q1", label_visibility="collapsed")
+    st.session_state.q1 = st.text_input("", st.session_state.q1, key="q1_input", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What was the day and month?</div>', unsafe_allow_html=True)
-    st.text_input("", key="q2", label_visibility="collapsed")
+    st.session_state.q2 = st.text_input("", st.session_state.q2, key="q2_input", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What is my nickname for you?</div>', unsafe_allow_html=True)
-    st.text_input("", key="q3", label_visibility="collapsed")
+    st.session_state.q3 = st.text_input("", st.session_state.q3, key="q3_input", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What is your nickname for me?</div>', unsafe_allow_html=True)
-    st.text_input("", key="q4", label_visibility="collapsed")
+    st.session_state.q4 = st.text_input("", st.session_state.q4, key="q4_input", label_visibility="collapsed")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -184,12 +189,5 @@ elif st.session_state.page == "quiz":
                 st.error("Try again baby 💔")
     with col2:
         if st.button("Retake Quiz 🔄"):
-            st.session_state.reset_quiz = True  # set a flag
-
-# At the very top of your script, after session_state initialization
-if "reset_quiz" in st.session_state and st.session_state.reset_quiz:
-    for k in ["q1","q2","q3","q4"]:
-        if k in st.session_state:
-            del st.session_state[k]
-    st.session_state.reset_quiz = False
-    st.experimental_rerun()  # safe, outside button context
+            for k in ["q1","q2","q3","q4"]:
+                st.session_state[k] = ""  # reset values
