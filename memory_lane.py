@@ -11,7 +11,12 @@ colors = ["#ff4d6d","#ff80a0","#ffb3c6","#ffccd9"]
 
 st.markdown("""
 <style>
-body { background: linear-gradient(135deg, #ffe6f0, #fff0f5); }
+/* Full app background */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    background-attachment: fixed;
+}
+
 h1, h2 { color: #ff4d6d; text-align: center; }
 .long-text { font-size: 18px; line-height: 1.7; background: rgba(255,255,255,0.6); padding: 20px; border-radius: 15px; margin-bottom: 20px; }
 .fade-in { animation: fadeIn 2s ease-in; }
@@ -26,14 +31,8 @@ h1, h2 { color: #ff4d6d; text-align: center; }
 .button-clickme { background-color: #ff4d6d; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-size: 18px; cursor: pointer; margin-bottom:20px; }
 .button-clickme:hover { background-color: #ff80a0; }
 
-.heart {
-  position: fixed; font-size: 20px; pointer-events: none;
-  animation: float linear infinite;
-}
-@keyframes float {
-  0% {transform: translateY(100vh);}
-  100% {transform: translateY(-10vh);}
-}
+.heart { position: fixed; font-size: 20px; pointer-events: none; animation: float linear infinite; }
+@keyframes float { 0% {transform: translateY(100vh);} 100% {transform: translateY(-10vh);} }
 </style>
 """, unsafe_allow_html=True)
 
