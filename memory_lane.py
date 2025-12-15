@@ -28,14 +28,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: 25px; 
     border-radius: 20px; 
     margin-bottom: 20px; 
-    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
 }
 .stTextInput>div>input {
     background: rgba(0,0,0,0.85);
     color: #fff;
     border-radius: 12px;
-    padding: 8px;
-    font-weight: bold;
 }
 .stButton>button {
     background-color: #ff4d6d;
@@ -43,155 +40,133 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 15px;
     font-weight: bold;
 }
-.stButton>button:hover {
-    background-color: #ff80a0;
+.fade-in {
+    animation: fadeIn 2s ease-in;
 }
-.fade-in { animation: fadeIn 2s ease-in; }
-@keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
-.polaroid { width: 300px; padding: 10px; background: white; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; transition: transform 0.3s; margin-bottom:20px; }
-.polaroid:hover { transform: scale(1.05) rotate(-1deg); }
-.heart { position: fixed; font-size: 20px; pointer-events: none; animation: float linear infinite; }
-@keyframes float { 0% {transform: translateY(100vh);} 100% {transform: translateY(-10vh);} }
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1; transform:translateY(0);}
+}
+.polaroid {
+    width: 300px;
+    padding: 10px;
+    background: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.question-bubble {
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    display: inline-block;
+    font-weight: 600;
+}
 </style>
 """, unsafe_allow_html=True)
 
-for _ in range(15):
-    size = random.randint(15,35)
-    left = random.randint(0, 95)
-    color = random.choice(colors)
-    st.markdown(f'<div class="heart" style="left:{left}%; font-size:{size}px; color:{color};">❤️</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div style="position:fixed; bottom:10px; right:10px; font-size:30px;">
-💖 💕 ❤️ 💘 💞
-</div>
-""", unsafe_allow_html=True)
-
-def show_polaroid(img_path):
-    with open(img_path, "rb") as f:
-        data = f.read()
-    data_url = base64.b64encode(data).decode("utf-8")
-    st.markdown(f'<img src="data:image/jpeg;base64,{data_url}" class="polaroid">', unsafe_allow_html=True)
+def show_polaroid(img):
+    with open(img,"rb") as f:
+        data = base64.b64encode(f.read()).decode()
+    st.markdown(f'<img src="data:image/jpeg;base64,{data}" class="polaroid">', unsafe_allow_html=True)
 
 if st.session_state.page == "login":
     st.markdown("<h1>Memory Lane ❤️</h1>", unsafe_allow_html=True)
-    name = st.text_input("What is your name?")
-    date = st.text_input("What is our date?")
-    if st.button("Enter 💖", key="enter"):
+
+    st.markdown('<div class="question-bubble">What is your name?</div>', unsafe_allow_html=True)
+    name = st.text_input("", label_visibility="collapsed")
+
+    st.markdown('<div class="question-bubble">What is our date?</div>', unsafe_allow_html=True)
+    date = st.text_input("", label_visibility="collapsed")
+
+    if st.button("Enter 💖"):
         if name.upper() == "MONKLET" and date == "26":
             st.session_state.page = "page1"
             st.rerun()
         else:
             st.error("Access denied 😭")
 
-if st.session_state.page == "page1":
+elif st.session_state.page == "page1":
     st.header("Chapter One 💕")
     st.markdown("""
     <div class="long-text fade-in">
-    It's been a month with you baby and honestly I write this message to you with tears of joy in my eyes. My life has taken a very visible turn since you came into my life since you said the words that made my year ‘I would be your girlfriend.’ From that moment my heart has known a peace and happiness it never felt before. Every day with you feels like a beautiful part of a love story I never want to end. You’ve touched my soul in ways words can’t fully express and I find myself falling deeper for you with every smile every laugh and every moment we share. One month may seem like a short period of time but to me it’s the start of something endless something that feels like forever.
-    Sometimes I fear how deeply I fell for you because it makes me realize how much you mean to me how much I never want to lose this. But that’s also what makes this love so real so genuine. I love you more than I can put into words baby and I’m so thankful I get to call you mine.
-    No matter where life takes us one thing will never change — I’ll keep choosing you over and over again.
+    It's been a month with you baby and honestly I write this message to you with tears of joy in my eyes. My life has taken a very visible turn since you came into my life since you said the words that made my year I would be your girlfriend. From that moment my heart has known a peace and happiness it never felt before. Every day with you feels like a beautiful part of a love story I never want to end. You’ve touched my soul in ways words can’t fully express and I find myself falling deeper for you with every smile every laugh and every moment we share.
     </div>
     """, unsafe_allow_html=True)
     show_polaroid("page1_pic1.jpg")
     show_polaroid("page1_pic2.jpg")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("⬅️ Back", key="back1"):
-            st.session_state.page = "login"
-            st.rerun()
-    with col2:
-        if st.button("Next ➡️", key="next1"):
-            st.session_state.page = "page2"
-            st.rerun()
+
+    if st.button("Next ➡️"):
+        st.session_state.page = "page2"
+        st.rerun()
 
 elif st.session_state.page == "page2":
     st.header("Chapter Two 💖")
     st.markdown("""
     <div class="long-text fade-in">
-    Honestly these past months have been extremely amazing literally the best year of my life already. You’ve made me the happiest person alive. I know we’ve had one or two down moments but the beautiful ones outweigh them. A little recap to the first time we met physically — 10th May 2025. That very day I felt it in my heart that you were the one. You’re such an amazing soul.
-    It wasn’t an easy task getting you to say yes but I can proudly say you were and are very worth the difficulty. Like they say good things don’t come easy. I always say “Michelle is my blessing from God.” You may think I’m exaggerating but I’m not.
-    I love you beyond measure beyond human comprehension and honestly you’re the best girlfriend in the world. I love you sooooo veryyyy muchhhh baby.
+    Honestly these past months have been extremely amazing literally the best year of my life already. You’ve made me the happiest person alive. That very day I felt it in my heart that you were the one. You’re such an amazing soul.
     </div>
     """, unsafe_allow_html=True)
     show_polaroid("page2_pic1.jpg")
     show_polaroid("page2_pic2.jpg")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("⬅️ Back", key="back2"):
-            st.session_state.page = "page1"
-            st.rerun()
-    with col2:
-        if st.button("Next ➡️", key="next2"):
-            st.session_state.page = "page3"
-            st.rerun()
+
+    if st.button("Next ➡️"):
+        st.session_state.page = "page3"
+        st.rerun()
 
 elif st.session_state.page == "page3":
     st.header("Chapter Three ❤️")
     st.markdown("""
     <div class="long-text fade-in">
-    There are so many things I could say to you but even the most beautiful words sometimes feel too small to hold the way I feel. I'm endlessly grateful to have you in my life. You're more than just my girlfriend — you're my safe place my peace and my spark. I wouldn't trade you for anything in this world.
-    Every moment we've shared means everything to me. The laughter the deep talks the quiet glances especially those times I look into your eyes and get completely lost like no map could ever find me. You bring out the child in me the carefree joyful side I thought I had buried. You've reminded me how it feels to truly live in a moment.
+    There are so many things I could say to you but even the most beautiful words sometimes feel too small to hold the way I feel. You're my safe place my peace and my spark.
     </div>
     """, unsafe_allow_html=True)
     show_polaroid("page3_pic1.jpg")
     show_polaroid("page3_pic2.jpg")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("⬅️ Back", key="back3"):
-            st.session_state.page = "page2"
-            st.rerun()
-    with col2:
-        if st.button("Next ➡️", key="next3"):
-            st.session_state.page = "page4"
-            st.rerun()
+
+    if st.button("Next ➡️"):
+        st.session_state.page = "page4"
+        st.rerun()
 
 elif st.session_state.page == "page4":
     st.header("Chapter Four 💘")
     st.markdown("""
     <div class="long-text fade-in">
-    Now those were all recaps of the moments and messages we've shared. It’s been a beautiful time we've spent together and honestly I wouldn’t trade it for anything. It’s been 152.08 days 21.726 weeks 3650.004 hours 13,140,014.4 seconds 13,140,014,400 milliseconds spent officially as your boyfriend and even more unofficially.
-    It’s been an amazing time a lot of beautiful memories we’ve made together and I love you sooooo muchhhh baby.
+    It’s been a beautiful time we've spent together and honestly I wouldn’t trade it for anything. I love you sooooo muchhhh baby.
     </div>
     """, unsafe_allow_html=True)
     show_polaroid("page4_pic1.jpg")
     show_polaroid("page4_pic2.jpg")
-    if st.button("⬅️ Back to Chapter Three", key="back4"):
-        st.session_state.page = "page3"
-        st.rerun()
+
     if st.button("Take the Memory Quiz 💌"):
         st.session_state.page = "quiz"
         st.rerun()
 
 elif st.session_state.page == "quiz":
     st.header("Memory Quiz 💖")
-    st.markdown("Answer the following questions about our special moments:")
 
-    if "q1" not in st.session_state: st.session_state.q1 = ""
-    if "q2" not in st.session_state: st.session_state.q2 = ""
-    if "q3" not in st.session_state: st.session_state.q3 = ""
-    if "q4" not in st.session_state: st.session_state.q4 = ""
+    st.markdown('<div class="question-bubble">1) Where did you say yes to being my girlfriend?</div>', unsafe_allow_html=True)
+    q1 = st.text_input("", label_visibility="collapsed")
 
-    st.session_state.q1 = st.text_input("1) Where did you say yes to being my girlfriend?", st.session_state.q1)
-    st.session_state.q2 = st.text_input("2) What was the day and month?", st.session_state.q2)
-    st.session_state.q3 = st.text_input("3) What is my nickname for you?", st.session_state.q3)
-    st.session_state.q4 = st.text_input("4) What is your nickname for me?", st.session_state.q4)
+    st.markdown('<div class="question-bubble">2) What was the day and month?</div>', unsafe_allow_html=True)
+    q2 = st.text_input("", label_visibility="collapsed")
+
+    st.markdown('<div class="question-bubble">3) What is my nickname for you?</div>', unsafe_allow_html=True)
+    q3 = st.text_input("", label_visibility="collapsed")
+
+    st.markdown('<div class="question-bubble">4) What is your nickname for me?</div>', unsafe_allow_html=True)
+    q4 = st.text_input("", label_visibility="collapsed")
 
     if st.button("Submit Answers"):
-        correct = (
-            st.session_state.q1.strip().lower() == "jabi lake mall" and
-            st.session_state.q2.strip().lower() in ["july 26","26 july"] and
-            st.session_state.q3.strip().lower() == "monklet" and
-            st.session_state.q4.strip().lower() == "hubby"
-        )
-        if correct:
+        if (
+            q1.strip().lower() == "jabi lake mall" and
+            q2.strip().lower() in ["july 26","26 july"] and
+            q3.strip().lower() == "monklet" and
+            q4.strip().lower() == "hubby"
+        ):
             st.balloons()
-            st.success("All answers correct! feel free to revisit this page anytime,anyday.I love youu 😘")
+            st.success("All answers correct 💖")
         else:
-            st.error("Some answers are incorrect. Try again 💖")
-
-    if st.button("Replay Quiz"):
-        st.session_state.q1 = ""
-        st.session_state.q2 = ""
-        st.session_state.q3 = ""
-        st.session_state.q4 = ""
+            st.error("Try again baby 💕")
