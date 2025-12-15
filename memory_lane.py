@@ -184,10 +184,11 @@ elif st.session_state.page == "quiz":
                 and st.session_state.q3.strip().lower() == "monklet"
                 and st.session_state.q4.strip().lower() == "hubby"
             ):
-                st.success("Perfect 💕 You really remember everything")
+                st.success("Perfect 💕 You got everything right baby")
             else:
                 st.error("Try again baby 💔")
     with col2:
         if st.button("Retake Quiz 🔄"):
             for k in ["q1","q2","q3","q4"]:
                 st.session_state[k] = ""  # reset values
+
