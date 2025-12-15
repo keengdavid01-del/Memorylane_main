@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import base64
 
 st.set_page_config(page_title="Memory Lane ❤️", page_icon="❤️")
 
@@ -37,7 +38,7 @@ h1, h2 { color: #ff4d6d; text-align: center; }
 </style>
 """, unsafe_allow_html=True)
 
-# Floating hearts on all pages
+# Floating hearts
 for _ in range(15):
     size = random.randint(15,35)
     left = random.randint(0, 95)
@@ -49,6 +50,13 @@ st.markdown("""
 💖 💕 ❤️ 💘 💞
 </div>
 """, unsafe_allow_html=True)
+
+# Helper function to display images as polaroids
+def show_polaroid(img_path):
+    with open(img_path, "rb") as f:
+        data = f.read()
+    data_url = base64.b64encode(data).decode("utf-8")
+    st.markdown(f'<img src="data:image/jpeg;base64,{data_url}" class="polaroid">', unsafe_allow_html=True)
 
 # Login page
 if st.session_state.page == "login":
@@ -72,8 +80,8 @@ if st.session_state.page == "page1":
     No matter where life takes us, one thing will never change — I’ll keep choosing you, over and over again.
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('<img src="page1_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
-    st.markdown('<img src="page1_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
+    show_polaroid("page1_pic1.jpg")
+    show_polaroid("page1_pic2.jpg")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back1"):
@@ -94,8 +102,8 @@ elif st.session_state.page == "page2":
     I love you beyond measure, beyond human comprehension, and honestly, you’re the best girlfriend in the world. I love you sooooo veryyyy muchhhh, baby.
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('<img src="page2_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
-    st.markdown('<img src="page2_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
+    show_polaroid("page2_pic1.jpg")
+    show_polaroid("page2_pic2.jpg")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back2"):
@@ -115,8 +123,8 @@ elif st.session_state.page == "page3":
     Every moment we've shared means everything to me. The laughter, the deep talks, the quiet glances, especially those times I look into your eyes and get completely lost, like no map could ever find me. You bring out the child in me, the carefree, joyful side I thought I had buried. You've reminded me how it feels to truly live in a moment.
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('<img src="page3_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
-    st.markdown('<img src="page3_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
+    show_polaroid("page3_pic1.jpg")
+    show_polaroid("page3_pic2.jpg")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back3"):
@@ -136,8 +144,8 @@ elif st.session_state.page == "page4":
     It’s been an amazing time, a lot of beautiful memories we’ve made together, and I love you sooooo muchhhh, baby.
     </div>
     """, unsafe_allow_html=True)
-    st.markdown('<img src="page4_pic1.jpg" class="polaroid">', unsafe_allow_html=True)
-    st.markdown('<img src="page4_pic2.jpg" class="polaroid">', unsafe_allow_html=True)
+    show_polaroid("page4_pic1.jpg")
+    show_polaroid("page4_pic2.jpg")
     if st.button("⬅️ Back to Chapter Three", key="back4"):
         st.session_state.page = "page3"
         st.rerun()
