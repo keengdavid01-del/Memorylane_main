@@ -181,6 +181,7 @@ elif st.session_state.page == "quiz":
             and st.session_state.q3.strip().lower() == "monklet"
             and st.session_state.q4.strip().lower() == "hubby"
         ):
-            st.success("Perfect 💕 You really remember everything")
+            st.success("Perfect 💕 You got everything right baby")
         else:
             st.error("Try again baby 💔")
+
