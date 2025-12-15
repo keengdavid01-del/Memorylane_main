@@ -1,21 +1,13 @@
 import streamlit as st
+import random
 
 st.set_page_config(page_title="Memory Lane ❤️", page_icon="❤️")
 
 if "page" not in st.session_state:
     st.session_state.page = "login"
-if "music_started" not in st.session_state:
-    st.session_state.music_started = False
 
-def play_music(file):
-    st.markdown(f"""
-    <audio id="bgmusic" src="{file}" type="audio/mp3" autoplay loop></audio>
-    <script>
-    const audio = document.getElementById("bgmusic");
-    audio.volume = 0.5;
-    audio.play();
-    </script>
-    """, unsafe_allow_html=True)
+# Floating hearts setup
+colors = ["#ff4d6d","#ff80a0","#ffb3c6","#ffccd9"]
 
 st.markdown("""
 <style>
@@ -23,11 +15,34 @@ body { background-color: #fff0f5; }
 h1, h2 { color: #ff4d6d; text-align: center; }
 .long-text { font-size: 18px; line-height: 1.7; background: rgba(255,255,255,0.6); padding: 20px; border-radius: 15px; margin-bottom: 20px; }
 .fade-in { animation: fadeIn 2s ease-in; }
+@keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
+
+.polaroid { 
+  width: 300px; padding: 10px; background: white; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; 
+  transition: transform 0.3s; margin-bottom:20px;
+}
+.polaroid:hover { transform: scale(1.05) rotate(-1deg); }
+
 .button-clickme { background-color: #ff4d6d; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-size: 18px; cursor: pointer; margin-bottom:20px; }
 .button-clickme:hover { background-color: #ff80a0; }
-@keyframes fadeIn { from {opacity:0; transform:translateY(10px);} to {opacity:1; transform:translateY(0);} }
+
+.heart {
+  position: fixed; font-size: 20px; pointer-events: none;
+  animation: float linear infinite;
+}
+@keyframes float {
+  0% {transform: translateY(100vh);}
+  100% {transform: translateY(-10vh);}
+}
 </style>
 """, unsafe_allow_html=True)
+
+# Floating hearts on all pages
+for _ in range(15):
+    size = random.randint(15,35)
+    left = random.randint(0, 95)
+    color = random.choice(colors)
+    st.markdown(f'<div class="heart" style="left:{left}%; font-size:{size}px; color:{color};">❤️</div>', unsafe_allow_html=True)
 
 st.markdown("""
 <div style="position:fixed; bottom:10px; right:10px; font-size:30px;">
@@ -47,23 +62,6 @@ if st.session_state.page == "login":
         else:
             st.error("Access denied 😭")
 
-# Cute "Click Me" button for music start
-if not st.session_state.music_started and st.session_state.page != "login":
-    if st.button("Click Me 🎵", key="clickme"):
-        st.session_state.music_started = True
-        st.rerun()
-
-# Play music based on page
-if st.session_state.music_started:
-    if st.session_state.page == "page1":
-        play_music("chapter1.mp3")
-    elif st.session_state.page == "page2":
-        play_music("chapter2.mp3")
-    elif st.session_state.page == "page3":
-        play_music("chapter3.mp3")
-    elif st.session_state.page == "page4":
-        play_music("chapter4.mp3")
-
 # Chapter One
 if st.session_state.page == "page1":
     st.header("Chapter One 💕")
@@ -74,8 +72,8 @@ if st.session_state.page == "page1":
     No matter where life takes us, one thing will never change — I’ll keep choosing you, over and over again.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page1_pic1.jpg")
-    st.image("page1_pic2.jpg")
+    st.image("page1_pic1.jpg", class_="polaroid")
+    st.image("page1_pic2.jpg", class_="polaroid")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back1"):
@@ -96,8 +94,8 @@ elif st.session_state.page == "page2":
     I love you beyond measure, beyond human comprehension, and honestly, you’re the best girlfriend in the world. I love you sooooo veryyyy muchhhh, baby.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page2_pic1.jpg")
-    st.image("page2_pic2.jpg")
+    st.image("page2_pic1.jpg", class_="polaroid")
+    st.image("page2_pic2.jpg", class_="polaroid")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back2"):
@@ -117,8 +115,8 @@ elif st.session_state.page == "page3":
     Every moment we've shared means everything to me. The laughter, the deep talks, the quiet glances, especially those times I look into your eyes and get completely lost, like no map could ever find me. You bring out the child in me, the carefree, joyful side I thought I had buried. You've reminded me how it feels to truly live in a moment.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page3_pic1.jpg")
-    st.image("page3_pic2.jpg")
+    st.image("page3_pic1.jpg", class_="polaroid")
+    st.image("page3_pic2.jpg", class_="polaroid")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("⬅️ Back", key="back3"):
@@ -138,8 +136,37 @@ elif st.session_state.page == "page4":
     It’s been an amazing time, a lot of beautiful memories we’ve made together, and I love you sooooo muchhhh, baby.
     </div>
     """, unsafe_allow_html=True)
-    st.image("page4_pic1.jpg")
-    st.image("page4_pic2.jpg")
+    st.image("page4_pic1.jpg", class_="polaroid")
+    st.image("page4_pic2.jpg", class_="polaroid")
     if st.button("⬅️ Back to Chapter Three", key="back4"):
         st.session_state.page = "page3"
         st.rerun()
+    if st.button("Take the Memory Quiz 💌"):
+        st.session_state.page = "quiz"
+        st.rerun()
+
+# Quiz page
+elif st.session_state.page == "quiz":
+    st.header("Memory Quiz 💖")
+    st.markdown("Answer the following questions about our special moments:")
+
+    q1 = st.text_input("1) Where did you say yes to being my girlfriend?")
+    q2 = st.text_input("2) What was the day and month?")
+    q3 = st.text_input("3) What is my nickname for you?")
+    q4 = st.text_input("4) What is your nickname for me?")
+
+    if st.button("Submit Answers"):
+        correct = (
+            q1.strip().lower() == "jabi lake mall" and
+            q2.strip().lower() in ["july 26","26 july"] and
+            q3.strip().lower() == "monklet" and
+            q4.strip().lower() == "hubby"
+        )
+        if correct:
+            st.balloons()
+            st.success("All answers correct! You know me so well 😘")
+        else:
+            st.error("Some answers are incorrect. Try again 💖")
+
+    if st.button("Replay Quiz"):
+        st.experimental_rerun()
