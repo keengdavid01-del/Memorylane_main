@@ -2,6 +2,18 @@ import streamlit as st
 
 st.set_page_config(page_title="Memory Lane ❤️", page_icon="❤️")
 
+def play_music(file):
+    st.markdown(f"""
+    <style>
+    audio {{
+        display: none;
+    }}
+    </style>
+    <audio autoplay loop>
+        <source src="{file}.mp3" type="audio/mp3">
+    </audio>
+    """, unsafe_allow_html=True)
+
 st.markdown("""
 <style>
 body {
@@ -39,6 +51,8 @@ if "page" not in st.session_state:
     st.session_state.page = "login"
 
 if st.session_state.page == "login":
+    play_music("login")
+
     st.markdown("<h1>Memory Lane ❤️</h1>", unsafe_allow_html=True)
 
     name = st.text_input("What is your name?")
@@ -52,6 +66,8 @@ if st.session_state.page == "login":
             st.error("Access denied 😭")
 
 elif st.session_state.page == "page1":
+    play_music("chapter1")
+
     st.header("Chapter One 💕")
 
     st.markdown("""
@@ -76,6 +92,8 @@ elif st.session_state.page == "page1":
             st.rerun()
 
 elif st.session_state.page == "page2":
+    play_music("chapter2")
+
     st.header("Chapter Two 💖")
 
     st.markdown("""
@@ -100,6 +118,8 @@ elif st.session_state.page == "page2":
             st.rerun()
 
 elif st.session_state.page == "page3":
+    play_music("chapter3")
+
     st.header("Chapter Three ❤️")
 
     st.markdown("""
@@ -123,6 +143,8 @@ elif st.session_state.page == "page3":
             st.rerun()
 
 elif st.session_state.page == "page4":
+    play_music("chapter4")
+
     st.header("Chapter Four 💘")
 
     st.markdown("""
