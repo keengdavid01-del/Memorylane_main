@@ -162,9 +162,10 @@ elif st.session_state.page == "quiz":
         )
         if correct:
             st.balloons()
-            st.success("All answers correct! You know me so well 😘")
+            st.success("All answers correct! Feel free to come back and revisit this page😘")
         else:
             st.error("Some answers are incorrect. Try again 💖")
 
     if st.button("Replay Quiz"):
         st.experimental_rerun()
+
