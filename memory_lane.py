@@ -52,13 +52,13 @@ if st.session_state.page == "login":
     st.markdown("<h1>Memory Lane ❤️</h1>", unsafe_allow_html=True)
 
     st.markdown('<div class="question-bubble">What is your name?</div>', unsafe_allow_html=True)
-    name = st.text_input("", key="name", label_visibility="collapsed")
+    st.text_input("", key="name", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What is our date?</div>', unsafe_allow_html=True)
-    date = st.text_input("", key="date", label_visibility="collapsed")
+    st.text_input("", key="date", label_visibility="collapsed")
 
     if st.button("Enter 💖"):
-        if name.upper() == "MONKLET" and date == "26":
+        if st.session_state.name.upper() == "MONKLET" and st.session_state.date == "26":
             st.session_state.page = "page1"
             st.rerun()
         else:
@@ -158,21 +158,17 @@ elif st.session_state.page == "page4":
 elif st.session_state.page == "quiz":
     st.header("Memory Quiz 💞")
 
-    for k in ["q1","q2","q3","q4"]:
-        if k not in st.session_state:
-            st.session_state[k] = ""
-
     st.markdown('<div class="question-bubble">Where did you say yes to being my girlfriend?</div>', unsafe_allow_html=True)
-    st.session_state.q1 = st.text_input("", st.session_state.q1, key="q1", label_visibility="collapsed")
+    st.text_input("", key="q1", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What was the day and month?</div>', unsafe_allow_html=True)
-    st.session_state.q2 = st.text_input("", st.session_state.q2, key="q2", label_visibility="collapsed")
+    st.text_input("", key="q2", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What is my nickname for you?</div>', unsafe_allow_html=True)
-    st.session_state.q3 = st.text_input("", st.session_state.q3, key="q3", label_visibility="collapsed")
+    st.text_input("", key="q3", label_visibility="collapsed")
 
     st.markdown('<div class="question-bubble">What is your nickname for me?</div>', unsafe_allow_html=True)
-    st.session_state.q4 = st.text_input("", st.session_state.q4, key="q4", label_visibility="collapsed")
+    st.text_input("", key="q4", label_visibility="collapsed")
 
     if st.button("Submit 💖"):
         if (
@@ -184,4 +180,3 @@ elif st.session_state.page == "quiz":
             st.success("Perfect 💕 You got everything right baby")
         else:
             st.error("Try again baby 💔")
-
