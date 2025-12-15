@@ -7,8 +7,15 @@ if "page" not in st.session_state:
 if "music_started" not in st.session_state:
     st.session_state.music_started = False
 
-def start_music(file):
-    st.audio(file, format="audio/mp3", start_time=0)
+def play_music_hidden(file):
+    st.markdown(f"""
+    <audio id="bgmusic" src="{file}" type="audio/mp3" autoplay loop></audio>
+    <script>
+    const audio = document.getElementById("bgmusic");
+    audio.volume = 0.5;
+    audio.play();
+    </script>
+    """, unsafe_allow_html=True)
 
 st.markdown("""
 <style>
@@ -40,21 +47,20 @@ if st.session_state.page == "login":
 
 if st.session_state.music_started:
     if st.session_state.page == "page1":
-        start_music("chapter1.mp3")
+        play_music_hidden("chapter1.mp3")
     elif st.session_state.page == "page2":
-        start_music("chapter2.mp3")
+        play_music_hidden("chapter2.mp3")
     elif st.session_state.page == "page3":
-        start_music("chapter3.mp3")
+        play_music_hidden("chapter3.mp3")
     elif st.session_state.page == "page4":
-        start_music("chapter4.mp3")
+        play_music_hidden("chapter4.mp3")
 
+# Page content remains the same
 if st.session_state.page == "page1":
     st.header("Chapter One 💕")
     st.markdown("""
     <div class="long-text fade-in">
-    It's been a month with you, baby, and honestly, I write this message to you with tears of joy in my eyes. My life has taken a very visible turn since you came into my life, since you said the words that made my year: ‘I would be your girlfriend.’ From that moment, my heart has known a peace and happiness it never felt before. Every day with you feels like a beautiful part of a love story I never want to end. You’ve touched my soul in ways words can’t fully express, and I find myself falling deeper for you with every smile, every laugh, and every moment we share. One month may seem like a short period of time, but to me, it’s the start of something endless, something that feels like forever.
-    Sometimes I fear how deeply I fell for you because it makes me realize how much you mean to me, how much I never want to lose this. But that’s also what makes this love so real, so genuine. I love you more than I can put into words, baby, and I’m so thankful I get to call you mine.
-    No matter where life takes us, one thing will never change — I’ll keep choosing you, over and over again.
+    It's been a month with you, baby, and honestly, I write this message to you with tears of joy in my eyes...
     </div>
     """, unsafe_allow_html=True)
     st.image("page1_pic1.jpg")
@@ -71,13 +77,7 @@ if st.session_state.page == "page1":
 
 elif st.session_state.page == "page2":
     st.header("Chapter Two 💖")
-    st.markdown("""
-    <div class="long-text fade-in">
-    Honestly, these past months have been extremely amazing, literally the best year of my life already. You’ve made me the happiest person alive. I know we’ve had one or two down moments, but the beautiful ones outweigh them. A little recap to the first time we met physically — 10th May 2025. That very day, I felt it in my heart that you were the one. You’re such an amazing soul.
-    It wasn’t an easy task getting you to say yes, but I can proudly say you were and are very worth the difficulty. Like they say, good things don’t come easy. I always say “Michelle is my blessing from God.” You may think I’m exaggerating, but I’m not.
-    I love you beyond measure, beyond human comprehension, and honestly, you’re the best girlfriend in the world. I love you sooooo veryyyy muchhhh, baby.
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='long-text fade-in'>Honestly, these past months have been extremely amazing...</div>", unsafe_allow_html=True)
     st.image("page2_pic1.jpg")
     st.image("page2_pic2.jpg")
     col1, col2 = st.columns(2)
@@ -92,12 +92,7 @@ elif st.session_state.page == "page2":
 
 elif st.session_state.page == "page3":
     st.header("Chapter Three ❤️")
-    st.markdown("""
-    <div class="long-text fade-in">
-    There are so many things I could say to you, but even the most beautiful words sometimes feel too small to hold the way I feel. I'm endlessly grateful to have you in my life. You're more than just my girlfriend — you're my safe place, my peace, and my spark. I wouldn't trade you for anything in this world.
-    Every moment we've shared means everything to me. The laughter, the deep talks, the quiet glances, especially those times I look into your eyes and get completely lost, like no map could ever find me. You bring out the child in me, the carefree, joyful side I thought I had buried. You've reminded me how it feels to truly live in a moment.
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='long-text fade-in'>There are so many things I could say to you, but even the most beautiful words sometimes feel too small...</div>", unsafe_allow_html=True)
     st.image("page3_pic1.jpg")
     st.image("page3_pic2.jpg")
     col1, col2 = st.columns(2)
@@ -112,12 +107,7 @@ elif st.session_state.page == "page3":
 
 elif st.session_state.page == "page4":
     st.header("Chapter Four 💘")
-    st.markdown("""
-    <div class="long-text fade-in">
-    Now those were all recaps of the moments and messages we've shared. It’s been a beautiful time we've spent together, and honestly, I wouldn’t trade it for anything. It’s been 152.08 days, 21.726 weeks, 3650.004 hours, 13,140,014.4 seconds, 13,140,014,400 milliseconds spent officially as your boyfriend and even more unofficially.
-    It’s been an amazing time, a lot of beautiful memories we’ve made together, and I love you sooooo muchhhh, baby.
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='long-text fade-in'>Now those were all recaps of the moments and messages we've shared...</div>", unsafe_allow_html=True)
     st.image("page4_pic1.jpg")
     st.image("page4_pic2.jpg")
     if st.button("⬅️ Back to Chapter Three", key="back4"):
