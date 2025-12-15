@@ -18,26 +18,30 @@ st.markdown("""
 h1, h2, h3, h4, h5, h6 {
     color: #fff;
     text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 .long-text { 
     font-size: 18px; 
     line-height: 1.7; 
-    background: rgba(0,0,0,0.6); 
+    background: rgba(0,0,0,0.85); 
     color: #fff; 
-    padding: 20px; 
-    border-radius: 15px; 
+    padding: 25px; 
+    border-radius: 20px; 
     margin-bottom: 20px; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
 }
 .stTextInput>div>input {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.85);
     color: #fff;
-    border-radius: 8px;
+    border-radius: 12px;
+    padding: 8px;
+    font-weight: bold;
 }
 .stButton>button {
     background-color: #ff4d6d;
     color: #fff;
-    border-radius: 12px;
+    border-radius: 15px;
+    font-weight: bold;
 }
 .stButton>button:hover {
     background-color: #ff80a0;
@@ -182,7 +186,7 @@ elif st.session_state.page == "quiz":
         )
         if correct:
             st.balloons()
-            st.success("All answers correct! You know me so well 😘")
+            st.success("All answers correct! feel free to revisit this page anytime,anyday.I love youu 😘")
         else:
             st.error("Some answers are incorrect. Try again 💖")
 
@@ -191,4 +195,3 @@ elif st.session_state.page == "quiz":
         st.session_state.q2 = ""
         st.session_state.q3 = ""
         st.session_state.q4 = ""
-
